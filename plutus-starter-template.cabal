@@ -1,0 +1,59 @@
+cabal-version: 2.4
+name:          plutus-starter-template
+version:       0.1.0.0
+license:
+license-files: LICENSE
+author:        Daniel Firth
+maintainer:    dan.firth@homotopic.tech
+
+common globals
+  default-language:   GHC2021
+  default-extensions:
+    DataKinds
+    DerivingStrategies
+    DerivingVia
+
+  ghc-options:
+    -Weverything -Werror -Wcompat -fwarn-redundant-constraints
+    -fwarn-incomplete-uni-patterns -fwarn-tabs
+    -fwarn-incomplete-record-updates -fwarn-identities
+    -Wno-all-missed-specialisations -Wno-implicit-prelude
+    -Wno-missing-safe-haskell-mode -Wno-safe -Wno-unsafe
+    -Wno-unused-packages
+
+common executable
+  ghc-options: -threaded -rtsopts -with-rtsopts=-N
+
+library
+  import:          globals
+  exposed-modules: Plutus.Contract.Example
+  build-depends:
+    , base               >=4.9 && <5
+    , effectful
+    , plutus-ledger-api
+    , plutus-tx
+
+  hs-source-dirs:  src
+
+test-suite spec
+  import:         globals
+  import:         executable
+  type:           exitcode-stdio-1.0
+  main-is:        Spec.hs
+  build-depends:
+    , base                     >=4.9 && <5
+    , plutus-starter-template
+    , tasty
+    , tasty-hedgehog
+
+  hs-source-dirs: test
+
+executable plutus-starter-template-exe
+  import:         globals
+  import:         executable
+  main-is:        Main.hs
+  build-depends:
+    , base
+    , plutus-starter-template
+
+  hs-source-dirs: app
