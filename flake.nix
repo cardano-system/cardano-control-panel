@@ -1,6 +1,6 @@
 {
   nixConfig.bash-prompt = "[nix-develop-plutus:] ";
-  description = "plutus-starter-template";
+  description = "cardano-control-panel";
   inputs = {
     flake-utils.url = "github:numtide/flake-utils";
     haskellNix.url = "github:input-output-hk/haskell.nix";
@@ -20,7 +20,7 @@
           haskellNix.overlay
           (final: prev: {
             # This overlay adds our project to pkgs
-            plutus-starter-template =
+            cardano-control-panel =
               final.haskell-nix.project' {
                 src = ./.;
                 compiler-nix-name = "ghc923";
@@ -40,7 +40,7 @@
           })
         ];
         pkgs = import nixpkgs { inherit system overlays; inherit (haskellNix) config; };
-        flake = pkgs.plutus-starter-template.flake { };
+        flake = pkgs.cardano-control-panel.flake { };
       in
       flake // {
         checks = flake.checks // {
@@ -49,6 +49,6 @@
           nixpkgs-fmt = lint-utils.outputs.linters.${system}.nixpkgs-fmt ./.;
           stylish-haskell = lint-utils.outputs.linters.${system}.stylish-haskell ./.;
         };
-        defaultPackage = flake.packages."plutus-starter-template:exe:plutus-starter-template-exe";
+        defaultPackage = flake.packages."cardano-control-panel:exe:cardano-control-panel-exe";
       });
 }

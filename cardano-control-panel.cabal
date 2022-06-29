@@ -1,5 +1,5 @@
 cabal-version: 2.4
-name:          plutus-starter-template
+name:          cardano-control-panel
 version:       0.1.0.0
 license:
 license-files: LICENSE
@@ -42,18 +42,18 @@ test-suite spec
   main-is:        Spec.hs
   build-depends:
     , base                     >=4.9 && <5
-    , plutus-starter-template
+    , cardano-control-panel
     , tasty
     , tasty-hedgehog
 
   hs-source-dirs: test
 
-executable plutus-starter-template-exe
+executable cardano-control-panel-exe
   import:         globals
   import:         executable
   main-is:        Main.hs
   build-depends:
     , base
-    , plutus-starter-template
+    , cardano-control-panel
 
   hs-source-dirs: app
